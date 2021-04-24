@@ -1,0 +1,24 @@
+.link {
+  border-radius: 5px;
+  padding: 3px;
+  background-color: #81ecec;
+}
+
+.img-avatar {
+  position: relative;
+  top: -120px;
+  border-top-left-radius: 150px;
+  border-top-right-radius: 150px;
+  border-bottom-right-radius: 150px;
+  border-bottom-left-radius: 150px;
+  border-width: 3.4px;
+  border-style: solid;
+  width: 300px;
+}
+
+body {
+  font-size: 22px;
+  color: #212529;
+  font-family: 'Alegreya Sans', sans-serif;
+}
+
