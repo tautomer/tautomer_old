@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Fixing Synology DS2415+ - Xinyang Li</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+Sans">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/extra.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container"><a class="navbar-brand" href="/index.html">Home</a><button data-toggle="collapse" data-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="/posts.html">POSTS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about.html">About&nbsp;ME</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/_resume/resume.html"><strong>résumé</strong></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead" style="background-image: url('../assets/img//posts_imgs/fixing_synology/fixed.jpg');margin-bottom: 50px;">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto">
+                    <div class="post-heading">
+                        <h1>Fixing Synology DS2415+ Not Booting Issue</h1>
+                        <h2 class="subheading"><strong>C'mon Intel, you even failed in making an Atom..</strong></h2><span class="meta">Posted by&nbsp;<a href="../about.html">an AMD user</a>&nbsp;on April 24, 2021</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto">
+                    <p style="text-align: justify;">Long story short. In January, the manager of computers in our department told me the Synology NAS DS2415+ for our group was dead for unknown amount of time... By checking my backup logs, I found the device has been died in the end of November...</p>
+                    <p style="text-align: justify;">Without too much thinking, we both accepted the fact that the NAS has died, so we should just leave it there for the time being. Until this week... one of our postdocs asked me how to back her data up, so I thought why not check what exactly happened to the NAS, since its situation would not get any worse anyway.</p>
+                    <p style="margin-bottom: 0px;text-align: justify;">So I just googled "ds2415+ motherboard repair". To my surprise, there are many posts where the devices were in the same or very similar situations. To name a few,</p>
+                    <div style="border-radius: 20px;background: rgb(214,214,214);">
+                        <ul style="margin-bottom: 0px;padding: 5px;margin-left: 25px;">
+                            <li><a href="https://www.reddit.com/r/synology/comments/ix3b4a/psa_for_those_having_issues_with_the_atom_c2000/">PSA for those having issues with the Atom C2000 variants of Synology Diskstation (DS1515+, DS1815+, DS415+, etc.)</a></li>
+                            <li><a href="https://community.synology.com/enu/forum/1/post/120548">Intel c2000 failures</a></li>
+                            <li><a href="https://www.reddit.com/r/synology/comments/609u1l/c2538_clock_fix_confirmed_ds2415/">C2538 Clock Fix Confirmed - DS2415+</a></li>
+                            <li><a href="https://www.reddit.com/r/synology/comments/cebu0r/replace_motherboard_of_broken_ds2415/">Replace motherboard of broken DS2415+</a></li>
+                        </ul>
+                    </div>
+                    <p style="margin-bottom: 0px;text-align: justify;">All these posts point to the same problem: the CPU used in these NAS, Intel Atom C2358 failed, due to a flaw in the clock signal component. The component degrades over time. Eventually (usually after around 18-month use), the&nbsp;component starts to fail and then the device will not boot. Our NAS was bought in 2016 and made all the way to the end of 2020, which is kind of impressive.</p>
+                    <p style="margin-bottom: 0px;text-align: justify;">The fix is simple, soldering a 100 Ω resistor on two pins on the motherboard.</p><img class="img-fluid" src="../assets/img//posts_imgs/fixing_synology/fix_reddit.jpg"><span class="text-muted caption" style="font-size: 16px;">Photo taken by&nbsp;<a href="https://www.reddit.com/user/adprom/"><em>u/adprom</em></a>&nbsp;and posted&nbsp;<a href="https://www.reddit.com/r/synology/comments/609u1l/c2538_clock_fix_confirmed_ds2415/">here</a>.&nbsp;</span>
+                    <p style="text-align: justify;margin-bottom: 0px;">Time to tear own machine down! Unfortunately, I did not take photos when taking the NAS apart, but the process was straightforward. To summarize,</p>
+                    <ol>
+                        <li>Remove the top panel,<br></li>
+                        <li>Remove all cabled connected to the motherboard,</li>
+                        <li>Remove all four screws holding the right panel,<br></li>
+                        <li>Remove the motherboard from the right panel.</li>
+                    </ol><img class="img-fluid" src="../assets/img//posts_imgs/fixing_synology/mobo.jpg"><span class="text-muted caption" style="font-size: 16px;">The motherboard of DS2415+. Green box is socket for the "internal USB drive" for the stock DSM. We will solder the resistor on the pin 1 and 6 in the red box. The pin the bottom right corner is pin 1.</span>
+                    <p style="text-align: justify;margin-bottom: 0px;">To test if the fix could really work on our NAS, I used two DuPont wires to temporarily connect the resistor onto the motherboard.</p><img class="img-fluid" src="../assets/img//posts_imgs/fixing_synology/dupont.jpg"><span class="text-muted caption" style="font-size: 16px;">Connecting the resistor.</span>
+                    <p style="text-align: justify;margin-bottom: 0px;">Then I plugged the RAM in and only connected the 24-pin ATX connector, 4-pin EPS connector and the front LED cable. And guess what? The device booted up, though the status LED was amber because there was no bootable drive detected.</p><img class="img-fluid" src="../assets/img//posts_imgs/fixing_synology/minboot.jpg"><span class="text-muted caption" style="font-size: 16px;">Successful minimum boot!</span>
+                    <p style="text-align: justify;margin-bottom: 0px;">All good! Let's connect everything back, including all the disks and the rear fans&nbsp;<span style="font-weight: bold;color: var(--red);">(If the rear fans are not connected, the NAS will flash an amber alert LED and beep every 3 seconds.)</span>&nbsp;and test again!</p><img class="img-fluid" src="../assets/img/posts_imgs/fixing_synology/fixed.jpg"><span class="text-muted caption" style="font-size: 16px;">All green!</span>
+                    <p style="text-align: justify;margin-bottom: 0px;">Since our NAS has a static IP address in the settings, I could not access the web UI directly. The trick is change the IPv4 address of the network adapter to the same range as the static IP of the NAS, set the mask t0 255.255.255.0, and leave everything else blank.</p>
+                    <p style="text-align: justify;margin-bottom: 0px;">Perfect! Time to solder the resistor on the back of the motherboard and this time, it took my 6 to 7 times to finally get a kinda stable soldering.... I used an insulation tape to cover the pins that could touch the lead of the resistor.</p><img class="img-fluid" src="../assets/img/posts_imgs/fixing_synology/solder.jpg"><span class="text-muted caption" style="font-size: 16px;">RIP, my poor soldering skills. In fact, the technician in our department redid the soldering&nbsp; one day later... which is way better than I did......</span>
+                    <p style="text-align: justify;margin-bottom: 0px;">Now the NAS fully revived! I saved some hundred bucks for my advisor.</p>
+                </div>
+            </div>
+        </div>
+    </article>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><a href="https://scholar.google.com/citations?user=HqnNotUAAAAJ&hl=en" target="_blank">
+    <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+</a></span></li>
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><a href="https://www.linkedin.com/in/xinyang-li-70345079/" target="_blank">
+    <i class="fa fa-linkedin-square fa-stack-1x fa-inverse"></i>
+</a></span></li>
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><a href="https://github.com/tautomer" target="_blank"><i class="fa fa-github fa-stack-1x fa-inverse"></i></a></span></li>
+                    </ul>
+                    <p class="text-muted copyright">Copyright&nbsp;©&nbsp;Xinyang Li 2021</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/clean-blog.js"></script>
+</body>
+
+</html>

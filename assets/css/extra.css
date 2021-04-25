@@ -22,3 +22,17 @@ body {
   font-family: 'Alegreya Sans', sans-serif;
 }
 
+.two-col-right-img {
+  min-width: 50%;
+  max-width: 100%;
+}
+
+@media only screen and (min-width:768px) {
+  .post-preview > a > .post-title-crafting {
+    color: #3498db;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 36px;
+  }
+}
+
